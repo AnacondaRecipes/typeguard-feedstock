@@ -1,5 +1,5 @@
 {% set name = "typeguard" %}
-{% set version = "2.13.3" %}
+{% set version = "3.0.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 00edaa8da3a133674796cf5ea87d9f4b4c367d77476e185e80251cc13dfbb8c4
+  sha256: fee5297fdb28f8e9efcb8142b5ee219e02375509cd77ea9d270b5af826358d5a
 
 build:
   number: 0
-  skip: True  # [py<36]
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  skip: True  # [py<37]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
@@ -24,6 +24,8 @@ requirements:
     - wheel
   run:
     - python
+    - importlib_metadata >=3.6   # [py<310]
+    - typing_extensions >=4.4.0  # [py<311]
 
 test:
   imports:
