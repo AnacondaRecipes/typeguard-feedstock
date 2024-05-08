@@ -11,7 +11,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [py<37]
+  skip: True  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
@@ -24,8 +24,8 @@ requirements:
     - wheel
   run:
     - python
-    - importlib_metadata >=3.6   # [py<310]
-    - typing_extensions >=4.4.0  # [py<311]
+    - importlib_metadata >=3.6  # [py<310]
+    - typing_extensions >=4.10.0
 
 test:
   imports:
