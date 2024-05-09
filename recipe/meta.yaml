@@ -25,7 +25,7 @@ requirements:
   run:
     - python
     - importlib_metadata >=3.6  # [py<310]
-    - typing_extensions >=4.10.0
+    - typing_extensions >=4.10.0  # [py<313]
 
 test:
   imports:
