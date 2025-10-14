@@ -1,17 +1,17 @@
 {% set name = "typeguard" %}
-{% set version = "4.2.1" %}
+{% set version = "4.4.4" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: c556a1b95948230510070ca53fa0341fb0964611bd05d598d87fb52115d65fee
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 3a7fd2dffb705d4d0efaed4306a704c89b9dee850b688f060a8b1615a79e5f74
 
 build:
   number: 0
-  skip: True  # [py<38]
+  skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
@@ -19,13 +19,14 @@ requirements:
     - python
     - pip
     - setuptools_scm
-    - setuptools
+    - setuptools >=77
     - toml
-    - wheel
+    - setuptools-scm >=6.4
   run:
     - python
     - importlib_metadata >=3.6  # [py<310]
-    - typing_extensions >=4.10.0  # [py<313]
+    - typing_extensions >=4.14.0
+    - importlib-metadata >=3.6  # [py<310]
 
 test:
   imports:
