@@ -1,39 +1,50 @@
 {% set name = "typeguard" %}
-{% set version = "4.2.1" %}
+{% set version = "4.4.4" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: c556a1b95948230510070ca53fa0341fb0964611bd05d598d87fb52115d65fee
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 3a7fd2dffb705d4d0efaed4306a704c89b9dee850b688f060a8b1615a79e5f74
 
 build:
   number: 0
-  skip: True  # [py<38]
+  skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
     - python
     - pip
-    - setuptools_scm
-    - setuptools
+    - setuptools-scm >=6.4
+    - setuptools >=77
     - toml
-    - wheel
   run:
     - python
-    - importlib_metadata >=3.6  # [py<310]
-    - typing_extensions >=4.10.0  # [py<313]
+    - importlib-metadata >=3.6  # [py<310]
+    - typing-extensions >=4.14.0
 
 test:
+  source_files:
+    - tests
   imports:
     - typeguard
+    - typeguard._checkers
+    - typeguard._config
+    - typeguard._exceptions
+    - typeguard._importhook
+    - typeguard._transformer
+    - typeguard._utils
   requires:
     - pip
+    - pytest >=7
+    - mypy >=1.2.0
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
 
 about:
   home: https://github.com/agronholm/typeguard
@@ -43,7 +54,7 @@ about:
   summary: Runtime type checker for Python
   description: |
     This library provides runtime type checking for functions defined with argument type annotations.
-  doc_url: https://typeguard.readthedocs.io/
+  doc_url: https://typeguard.readthedocs.io
   dev_url: https://github.com/agronholm/typeguard
 
 extra:
