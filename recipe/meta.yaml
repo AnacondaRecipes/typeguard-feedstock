@@ -25,6 +25,7 @@ requirements:
     - python
     - importlib-metadata >=3.6  # [py<310]
     - typing-extensions >=4.14.0
+    - typing_extensions >=4.14.0
 
 test:
   source_files:
